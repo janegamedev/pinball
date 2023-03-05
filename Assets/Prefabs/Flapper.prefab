@@ -393,8 +393,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joint: {fileID: 77073481195310102}
-  targetVelocity: 100
-  motorForce: 50
+  targetVelocity: 1500
+  motorForce: 1500
 --- !u!54 &77073481195310105
 Rigidbody:
   m_ObjectHideFlags: 0

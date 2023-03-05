@@ -16,19 +16,19 @@ namespace Janegamedev
 
         private void Start()
         {
-            Relax();
+            SetAction(false);
         }
 
-        [ContextMenu("Flap")]
-        public void Flap()
+        public void SetAction(bool active)
         {
-            UpdateMotor(targetVelocity, motorForce);
-        }
-        
-        [ContextMenu("Relax")]
-        public void Relax()
-        {
-            UpdateMotor(0, 0);
+            if (active)
+            {
+                UpdateMotor(targetVelocity, motorForce);
+            }
+            else
+            {
+                UpdateMotor(0, 0);
+            }
         }
 
         private void UpdateMotor(float velocity, float force)
