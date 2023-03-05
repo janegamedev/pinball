@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Janegamedev
 {
     public enum CollisionEventType
@@ -9,5 +11,10 @@ namespace Janegamedev
     public interface IBallTriggerable
     {
         void HandleBallTrigger(BallCollisionController controller, CollisionEventType type);
+    }
+
+    public interface IBallCollidable
+    {
+        void HandleBallCollision(BallCollisionController controller, Vector3 collisionPoint);
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +19,33 @@ namespace Janegamedev
             Reset();
         }
 
+        #region Collision
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (!enabled)
+            {
+                return;
+            }
+            
+            Component collidable = (Component)other.transform.GetComponentInParent<IBallCollidable>();
+            
+            if (collidable != null)
+            {
+                IBallCollidable[] ballCollidables = collidable.GetComponents<IBallCollidable>();
+
+                Vector3 collisionPoint = other.contacts[0].point;
+                foreach (IBallCollidable ballCollidable in ballCollidables)
+                {
+                    ballCollidable?.HandleBallCollision(this, collisionPoint);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Trigger
+        
         private void OnTriggerEnter(Collider other)
         {
             // Check if already entered the same collider
@@ -62,6 +88,8 @@ namespace Janegamedev
                 ballTriggerable?.HandleBallTrigger(this, collisionEventType);
             }
         }
+        
+        #endregion
 
         public void Reset()
         {
