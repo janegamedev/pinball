@@ -113,9 +113,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 2
 --- !u!114 &1822875047322597150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainRigidbody: {fileID: 6267736479791761072}
-  bounceForceMultiplier: 10
   collisionController: {fileID: 8155904107545029037}
 --- !u!114 &8155904107545029037
 MonoBehaviour:
@@ -143,9 +142,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a311648ace4c1699bd39899c7e87b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dampenValueFromInputAngle:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
