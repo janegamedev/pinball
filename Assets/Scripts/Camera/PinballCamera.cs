@@ -27,6 +27,7 @@ namespace Janegamedev.Camera
             {
                 UIController.Instance.StartScreen.OnTransitionInBegun += HandleMenuScreenTransitionInBegun;
                 UIController.Instance.StartScreen.OnTransitionOutBegun += HandleMenuScreenTransitionOutBegun;
+                UIController.Instance.GameOverScreen.OnTransitionInBegun += HandleGameOverScreenTransitionInBegun;
             }
         }
         
@@ -38,6 +39,7 @@ namespace Janegamedev.Camera
             {
                 UIController.Instance.StartScreen.OnTransitionInBegun -= HandleMenuScreenTransitionInBegun;
                 UIController.Instance.StartScreen.OnTransitionOutBegun -= HandleMenuScreenTransitionOutBegun;
+                UIController.Instance.GameOverScreen.OnTransitionInBegun -= HandleGameOverScreenTransitionInBegun;
             }
         }
 
@@ -49,6 +51,11 @@ namespace Janegamedev.Camera
         private void HandleMenuScreenTransitionOutBegun(UIScreen screen)
         {
             TweenOrthoSize(inGameOrthoSize);
+        }
+        
+        private void HandleGameOverScreenTransitionInBegun(UIScreen screen)
+        {
+            TweenOrthoSize(menuOrthoSize);
         }
 
         private void TweenOrthoSize(float size)

@@ -6,16 +6,17 @@ using Janegamedev.Obstacles;
 using Janegamedev.UI;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Janegamedev.Core
 {
-    public class BallLauncher : MonoBehaviour
+    public class BallController : MonoBehaviour
     {
-        public event Action<BallLauncher, int> OnBothBallsScored;
-        public static event Action<BallLauncher, float> OnLaunchForcePercentageUpdated; 
+        public static event Action<BallController> OnBothBallsScored;
+        public static event Action<BallController, float> OnLaunchForcePercentageUpdated; 
 
         [SerializeField]
-        private Ball ballPrefab;
+        private Ball[] ballPrefabs;
         [SerializeField]
         private Transform[] spawnPositions;
         [SerializeField]
@@ -23,9 +24,9 @@ namespace Janegamedev.Core
         [SerializeField]
         private float launchWaitDuration;
 
+        private readonly Dictionary<Transform, Ball> spawnedNotLaunchedBalls = new Dictionary<Transform, Ball>();
         private readonly HashSet<Ball> spawnedBalls = new HashSet<Ball>();
         private readonly HashSet<Ball> scoredBalls = new HashSet<Ball>();
-        private Dictionary<Transform, Ball> spawnedNotLaunchedBalls = new Dictionary<Transform, Ball>();
         private Coroutine launchRoutine;
         private float launchForcePercentage;
         
@@ -33,6 +34,7 @@ namespace Janegamedev.Core
         {
             BallScoreZone.OnAnyBallEnteredScoreZone += HandleAnyBallEnteredScoreZone;
             BasePlayer.OnAnyPlayerFireRequest += HandleAnyPlayerFireRequest;
+            GameState.OnGameEnded += HandleGameEnded;
             
             if(UIController.Instance != null)
             {
@@ -50,6 +52,8 @@ namespace Janegamedev.Core
             
             BallScoreZone.OnAnyBallEnteredScoreZone -= HandleAnyBallEnteredScoreZone;
             BasePlayer.OnAnyPlayerFireRequest -= HandleAnyPlayerFireRequest;
+            GameState.OnGameEnded -= HandleGameEnded;
+            
             if (UIController.Instance != null)
             {
                 UIController.Instance.GameplayScreen.OnTransitionInFinished -= HandleGameplayScreenTransitionInFinished;
@@ -75,9 +79,10 @@ namespace Janegamedev.Core
 
         private IEnumerator LaunchRoutine()
         {
+            Ball randomBall = ballPrefabs[Random.Range(0, ballPrefabs.Length)];
             for (int i = 0; i < spawnPositions.Length; i++)
             {
-                PlaceBall(i);
+                PlaceBall(randomBall, i);
             }
             
             Tween forceTween = DOTween.To(x => launchForcePercentage = x,
@@ -102,7 +107,7 @@ namespace Janegamedev.Core
             launchRoutine = null;
         }
         
-        private void PlaceBall(int teamIndex)
+        private void PlaceBall(Ball ballPrefab, int teamIndex)
         {
             Transform teamLaunchPos = spawnPositions[teamIndex];
             if (spawnedNotLaunchedBalls.ContainsKey(teamLaunchPos))
@@ -110,11 +115,12 @@ namespace Janegamedev.Core
                 return;
             }
             
-            Ball ball = PlaceBall(teamLaunchPos.position);
+            Ball ball = PlaceBall(ballPrefab, teamLaunchPos.position);
+            ball.DisableBall();
             spawnedNotLaunchedBalls.Add(teamLaunchPos, ball);
         }
 
-        private Ball PlaceBall(Vector3 spawnLocation)
+        private Ball PlaceBall(Ball ballPrefab, Vector3 spawnLocation)
         {
             return Instantiate(ballPrefab, spawnLocation, quaternion.identity);
         }
@@ -131,8 +137,9 @@ namespace Janegamedev.Core
 
         private void LaunchBall(Ball ball)
         {
+            ball.EnableBall();
             float force = Mathf.Lerp(spawnForceMinMax.x, spawnForceMinMax.y, launchForcePercentage);
-            ball.AddForce(Vector3.forward * force);
+            ball.AddImpulseForce(Vector3.forward * force);
             spawnedBalls.Add(ball);
         }
         
@@ -144,12 +151,11 @@ namespace Janegamedev.Core
         private void HandleAnyBallEnteredScoreZone(BallScoreZone zone, Ball scoredBall, int teamId)
         {
             scoredBalls.Add(scoredBall);
-            scoredBall.MainRigidbody.isKinematic = true;
+            scoredBall.DisableBall();
 
             if (scoredBalls.Count == spawnedBalls.Count)
             {
-                OnBothBallsScored?.Invoke(this, teamId);
-                StartRound();
+                OnBothBallsScored?.Invoke(this);
             }
         }
 
@@ -162,6 +168,11 @@ namespace Janegamedev.Core
                 
             spawnedBalls.Clear();
             scoredBalls.Clear();
+        }
+        
+        private void HandleGameEnded(GameState state)
+        {
+            DestroyBalls();
         }
     }
 }

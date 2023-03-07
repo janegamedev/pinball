@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Janegamedev.Obstacles
 {
-    public class Bumper : CollisionObject
+    public class DirectionalBumper : CollisionObject
     {
         [SerializeField]
-        private float explosionBounceForce = 100;
+        private float force = 100f;
         [SerializeField]
-        private float explosionRadius = 0.2f;
+        private Vector3 direction;
         
         protected override void PerformCollisionActions(BallCollisionController controller, Vector3 collisionPoint)
         {
-            controller.Ball.AddExplosionForce(explosionBounceForce, collisionPoint, explosionRadius);
+            controller.Ball.AddImpulseForce(direction * force);
         }
     }
 }

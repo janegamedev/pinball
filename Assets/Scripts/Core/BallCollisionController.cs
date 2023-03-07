@@ -24,7 +24,7 @@ namespace Janegamedev.Core
 
         private void OnCollisionEnter(Collision other)
         {
-            if (!enabled)
+            if (!enabled || !Ball.IsEnabled)
             {
                 return;
             }
@@ -49,6 +49,11 @@ namespace Janegamedev.Core
         
         private void OnTriggerEnter(Collider other)
         {
+            if (!enabled || !Ball.IsEnabled)
+            {
+                return;
+            }
+            
             // Check if already entered the same collider
             // Made to prevent the child of this component to trigger OnTriggerEnter which results in entering more than once
             if (enteredColliders.Contains(other.gameObject))
@@ -62,6 +67,11 @@ namespace Janegamedev.Core
 
         private void OnTriggerExit(Collider other)
         {
+            if (!enabled || !Ball.IsEnabled)
+            {
+                return;
+            }
+            
             bool isEnteredCollider = enteredColliders.Contains(other.gameObject);
             
             if (!isEnteredCollider)

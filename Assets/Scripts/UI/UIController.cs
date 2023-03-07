@@ -15,14 +15,13 @@ namespace Janegamedev.UI
         public UIScreen StartScreen => startScreen;
         [SerializeField]
         private UIScreen roundScreen;
-        public UIScreen RoundScreen => roundScreen;
         [SerializeField]
         private UIScreen gameplayScreen;
         public UIScreen GameplayScreen => gameplayScreen;
         [SerializeField]
-        private UIScreen resultScreen;
-        public UIScreen ResultScreen => resultScreen;
-        
+        private UIScreen gameOverScreen;
+        public UIScreen GameOverScreen => gameOverScreen;
+
         private UIScreen currentScreen;
         private UIScreen nextScreen;
         private readonly HashSet<UIScreen> registeredScreens = new HashSet<UIScreen>();
@@ -33,7 +32,8 @@ namespace Janegamedev.UI
             RegisterUIScreens(
                 startScreen, 
                 roundScreen, 
-                gameplayScreen);
+                gameplayScreen,
+                gameOverScreen);
         }
 
         private void Start()
@@ -166,6 +166,12 @@ namespace Janegamedev.UI
             }
         }
 
+        public void OpenStartScreen()
+        {
+            DeactivateAllScreens();
+            startScreen.Active = true;
+        }
+        
         public void DisplayNewRoundInfo()
         {
             DeactivateAllScreens();
@@ -181,10 +187,10 @@ namespace Janegamedev.UI
         public void ShowResultScreen()
         {
             DeactivateAllScreens();
-            resultScreen.Active = true;
+            gameOverScreen.Active = true;
         }
-        
-        public void DeactivateAllScreens()
+
+        private void DeactivateAllScreens()
         {
             foreach (UIScreen screen in registeredScreens)
             {

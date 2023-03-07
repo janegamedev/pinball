@@ -18,7 +18,7 @@ namespace Janegamedev.UI.Elements
         private void Awake()
         {
             step = 1f / forceArrows.Length;
-            BallLauncher.OnLaunchForcePercentageUpdated += HandleLaunchForcePercentageUpdated;
+            BallController.OnLaunchForcePercentageUpdated += HandleLaunchForcePercentageUpdated;
             GameState.OnNewRoundStarted += HandleNewRoundStarted;
         }
         
@@ -29,11 +29,11 @@ namespace Janegamedev.UI.Elements
 
         private void OnDestroy()
         {
-            BallLauncher.OnLaunchForcePercentageUpdated -= HandleLaunchForcePercentageUpdated;
+            BallController.OnLaunchForcePercentageUpdated -= HandleLaunchForcePercentageUpdated;
             GameState.OnNewRoundStarted -= HandleNewRoundStarted;
         }
 
-        private void HandleLaunchForcePercentageUpdated(BallLauncher ballLauncher, float percentage)
+        private void HandleLaunchForcePercentageUpdated(BallController ballController, float percentage)
         {
             if (percentage >= nextThreshold)
             {

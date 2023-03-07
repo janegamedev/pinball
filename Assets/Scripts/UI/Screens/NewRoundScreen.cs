@@ -15,11 +15,14 @@ namespace Janegamedev.UI.Screens
         [SerializeField]
         private TextMeshProUGUI roundLabel;
         [SerializeField]
+        private TextMeshProUGUI additionalTimeLabel;
+        [SerializeField]
         private TextMeshProUGUI countdownLabel;
         [SerializeField]
         private float countdownTime = 3f;
 
         private Coroutine countdownRoutine;
+        private bool additionalTime;
 
         protected override void OnDestroy()
         {
@@ -32,6 +35,8 @@ namespace Janegamedev.UI.Screens
 
         protected override IEnumerator TransitionIn()
         {
+            additionalTime = GameState.Instance.IsAdditionalRound;
+            additionalTimeLabel.gameObject.SetActive(additionalTime);
             GameState.Instance.SetIgnoreInputs(true);
             countdownLabel.DOFade(0, 0);
             countdownLabel.text = string.Empty;
@@ -43,11 +48,18 @@ namespace Janegamedev.UI.Screens
         private IEnumerator CountdownRoutine()
         {
             Tween fadeTween = roundLabel.DOFade(1, TEXT_FADE_DURATION);
+
+            if (additionalTime)
+            {
+                additionalTimeLabel.DOFade(1, TEXT_FADE_DURATION);
+            }
+            
             yield return new WaitForSeconds(COUNTDOWN_DELAY);
             
             fadeTween?.Kill();
             fadeTween = DOTween.Sequence()
                 .Append(roundLabel.DOFade(0, TEXT_FADE_DURATION))
+                .Join(additionalTimeLabel.DOFade(0, TEXT_FADE_DURATION))
                 .Append(countdownLabel.DOFade(1f, TEXT_FADE_DURATION))
                 .OnComplete(() => fadeTween = null);
             

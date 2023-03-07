@@ -16,39 +16,29 @@ namespace Janegamedev.Core
         private GameSettings gameSettings;
         public GameSettings GameSettings => gameSettings;
 
-        [SerializeField]
-        private BallLauncher ballLauncher;
-
         private int MaxRounds => gameSettings.MaxRounds;
+        public bool IsAdditionalRound => RoundIndex >= MaxRounds && !TeamController.Instance.HasWinnerTeam();
         
         public int RoundIndex { get; private set; }
         public bool IgnoreInputs { get; private set; }
-
-        private int totalRoundScore = 0;
+        public int TotalRoundScore { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
-            ballLauncher.OnBothBallsScored += HandleBothBallsScored;
+            BallController.OnBothBallsScored += HandleBothBallsScored;
         }
 
         private void OnDestroy()
         {
-            ballLauncher.OnBothBallsScored -= HandleBothBallsScored;
+            BallController.OnBothBallsScored -= HandleBothBallsScored;
         }
 
         public void StartGame()
         {
+            RoundIndex = 0;
             OnGameStarted?.Invoke(this);
             StartNewRound();
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                EndRound(true);
-            }
         }
 
         private void StartNewRound()
@@ -59,9 +49,9 @@ namespace Janegamedev.Core
             OnNewRoundStarted?.Invoke(this);
         }
 
-        private void EndRound(bool ignoreMaxRounds = false)
+        private void EndRound()
         {
-            if (RoundIndex < MaxRounds || ignoreMaxRounds)
+            if (RoundIndex < MaxRounds || !TeamController.Instance.HasWinnerTeam())
             {
                 StartNewRound();
                 return;
@@ -76,7 +66,7 @@ namespace Janegamedev.Core
             OnGameEnded?.Invoke(this);
         }
         
-        private void HandleBothBallsScored(BallLauncher launcher, int winnerIndex)
+        private void HandleBothBallsScored(BallController controller)
         {
             EndRound();
         }
@@ -88,13 +78,13 @@ namespace Janegamedev.Core
 
         public void AddScore(int score)
         {
-            SetNewRoundScore(totalRoundScore + score);
+            SetNewRoundScore(TotalRoundScore + score);
         }
 
         private void SetNewRoundScore(int newScore)
         {
-            totalRoundScore = newScore;
-            OnTotalRoundScoreUpdated?.Invoke(this, totalRoundScore);
+            TotalRoundScore = newScore;
+            OnTotalRoundScoreUpdated?.Invoke(this, TotalRoundScore);
         }
     }
 }

@@ -1,31 +1,41 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using Janegamedev.Obstacles;
+using Janegamedev.Utilities;
 using UnityEngine;
 
 namespace Janegamedev.Core
 {
-    public class TeamController : MonoBehaviour
+    public class TeamController : Singleton<TeamController>
     {
-        [Serializable]
-        public class Team
-        {
-            public GameSettings.PlayerType playerType;
-            public string controlScheme = string.Empty;
-        }
-        
         [SerializeField]
         private Team[] playerSides = new Team[2];
-        
+
+        public List<Team> Teams => teamByIdSet.Values.ToList();
+
         private readonly HashSet<BasePlayer> spawnedPlayers = new HashSet<BasePlayer>();
+        private readonly Dictionary<int, Team> teamByIdSet = new Dictionary<int, Team>();
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             GameState.OnGameStarted += HandleGameStarted;
-        }
+            GameState.OnNewRoundStarted += HandleNewRoundStarted;
+            BallScoreZone.OnAnyBallEnteredScoreZone += HandleAnyBallEnteredScoreZone;
+            BallController.OnBothBallsScored += HandleBothBallsScored;
 
+            foreach (Team team in playerSides)
+            {
+                teamByIdSet.Add(team.teamId, team);
+            }
+        }
+        
         private void OnDestroy()
         {
             GameState.OnGameStarted -= HandleGameStarted;
+            GameState.OnNewRoundStarted -= HandleNewRoundStarted;
+            BallScoreZone.OnAnyBallEnteredScoreZone -= HandleAnyBallEnteredScoreZone;
+            BallController.OnBothBallsScored -= HandleBothBallsScored;
         }
 
         private void HandleGameStarted(GameState gameState)
@@ -59,8 +69,65 @@ namespace Janegamedev.Core
             {
                 Destroy(spawnedPlayer.gameObject);
             }
+
+            foreach (Team team in teamByIdSet.Values)
+            {
+                team.ResetGame();
+            }
             
             spawnedPlayers.Clear();
+        }
+        
+        private void HandleAnyBallEnteredScoreZone(BallScoreZone scoreZone, Ball ball, int teamId)
+        {
+            if (teamByIdSet.TryGetValue(teamId, out Team team))
+            {
+                team.IncrementScoredBalls();
+            }
+        }
+        
+        private void HandleBothBallsScored(BallController controller)
+        {
+            int totalScore = GameState.Instance.TotalRoundScore;
+
+            Team winningTeam = teamByIdSet.FirstOrDefault(x => x.Value.ScoredBalls > 1).Value;
+
+            if (winningTeam == null)
+            {
+                int splitTotalScore = Mathf.FloorToInt(totalScore / 2f);
+                foreach (Team team in teamByIdSet.Values)
+                {
+                    team.AddScore(splitTotalScore);
+                }
+            }
+            else
+            {
+                winningTeam.AddScore(totalScore);
+            }
+        }
+        
+        private void HandleNewRoundStarted(GameState state)
+        {
+            foreach (Team team in teamByIdSet.Values)
+            {
+                team.ResetRound();
+            }
+        }
+
+        public bool HasWinnerTeam()
+        {
+            List<Team> sortedTeam = Teams;
+            sortedTeam.Sort();
+            
+            for (int i = 1; i < 2; i++)
+            {
+                if (sortedTeam[i].Score == sortedTeam[i - 1].Score)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

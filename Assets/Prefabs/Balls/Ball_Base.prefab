@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1822875047322597150}
   - component: {fileID: 8155904107545029037}
   m_Layer: 0
-  m_Name: Ball
+  m_Name: Ball_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainRigidbody: {fileID: 6267736479791761072}
-  collisionController: {fileID: 8155904107545029037}
 --- !u!114 &8155904107545029037
 MonoBehaviour:
   m_ObjectHideFlags: 0

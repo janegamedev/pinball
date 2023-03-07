@@ -1,3 +1,4 @@
+using Janegamedev.Core;
 using TMPro;
 using UnityEngine;
 
@@ -10,11 +11,21 @@ namespace Janegamedev.UI.Elements
         [SerializeField]
         private TextMeshProUGUI playersScore;
 
-        private void HandleAnyPlayerScoreUpdated(int index, int score)
+        private void Start()
         {
-            if (teamIndex == index)
+            Team.OnAnyTeamScoreUpdated += HandleAnyPlayerScoreUpdated;
+        }
+
+        private void OnDestroy()
+        {
+            Team.OnAnyTeamScoreUpdated -= HandleAnyPlayerScoreUpdated;
+        }
+
+        private void HandleAnyPlayerScoreUpdated(Team team)
+        {
+            if (teamIndex == team.teamId)
             {
-                playersScore.text = score.ToString();
+                playersScore.text = team.Score.ToString();
             }
         }
     }
