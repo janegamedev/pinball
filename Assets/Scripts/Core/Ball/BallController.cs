@@ -146,7 +146,7 @@ namespace Janegamedev.Core
             spawnedBalls.Add(ball);
             MusicPlayer.Instance.PlaySFX(BALL_RELEASE_SFX);
         }
-        
+
         private void HandleAnyPlayerFireRequest(BasePlayer player, int teamIndex)
         {
             LaunchBall(teamIndex);

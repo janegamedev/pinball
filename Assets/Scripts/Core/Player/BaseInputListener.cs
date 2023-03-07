@@ -5,14 +5,14 @@ namespace Janegamedev.Core
 {
     public abstract class BaseInputListener : MonoBehaviour
     {
-        public event Action<BaseInputListener, int, bool> OnAnyFlapperActionReceived;
+        public event Action<BaseInputListener, int, bool> OnAnyFlipperActionReceived;
         public event Action<BaseInputListener> OnFireActionTriggered;
 
         public virtual void ActivateListener(string controlScheme) { }
         
-        protected void BroadcastFlapperAction(int index, bool activate)
+        protected void BroadcastFlipperAction(int index, bool activate)
         {
-            OnAnyFlapperActionReceived?.Invoke(this, index, activate);
+            OnAnyFlipperActionReceived?.Invoke(this, index, activate);
         }
         
         protected void BroadcastFireActionTriggered()

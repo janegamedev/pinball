@@ -25,12 +25,24 @@ MonoBehaviour:
     maxVolume: 0.5
     fadeTime: 0.5
   sfxGroups:
-  - id: ballCollision
+  - id: ballCollisionPlastic
+    tracks:
+    - {fileID: 8300000, guid: 16baafd65d7ba3e4fbea02e6be014ab5, type: 3}
+    - {fileID: 8300000, guid: b3487d7b84447464688b4ea7f86e7475, type: 3}
+    maxVolume: 0.15
+  - id: ballCollisionRubber
+    tracks:
+    - {fileID: 8300000, guid: d22e20d513bbf114d82342c6209fe6de, type: 3}
+    - {fileID: 8300000, guid: 23365ecf42239ec41a635f6e95d7467a, type: 3}
+    - {fileID: 8300000, guid: 7984a8af13f24b04e93c69302585f847, type: 3}
+    - {fileID: 8300000, guid: 40f0eb4a17fcff940935a671993dc952, type: 3}
+    maxVolume: 0.15
+  - id: ballCollisionMetal
     tracks:
     - {fileID: 8300000, guid: 6fd391c0a33784748a8d3a3dbee0586f, type: 3}
     - {fileID: 8300000, guid: a7e84be52622de441aefadaa5389d9d6, type: 3}
     - {fileID: 8300000, guid: 87f4c1ac0d7e26943b12bded4ad7f618, type: 3}
-    maxVolume: 0.4
+    maxVolume: 0.15
   - id: bumper
     tracks:
     - {fileID: 8300000, guid: ebcf1a1473b358147a120c53e2eb476f, type: 3}
@@ -90,7 +102,7 @@ MonoBehaviour:
   - id: countdown
     tracks:
     - {fileID: 8300000, guid: f64533a5d1e4bc643b9470007dc01ecd, type: 3}
-    maxVolume: 0.6
+    maxVolume: 0.4
   - id: wooo
     tracks:
     - {fileID: 8300000, guid: c46fed4acd71f6d448be959a6272ea7c, type: 3}

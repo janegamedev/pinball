@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Janegamedev.Core
 {
@@ -7,15 +8,20 @@ namespace Janegamedev.Core
     {
         public static event Action<Team> OnAnyTeamScoreUpdated;
 
-        public GameSettings.PlayerType playerType;
-        public string controlScheme = string.Empty;
-        public int teamId = 0;
+        [SerializeField]
+        private GameSettings.PlayerType playerType;
+        public GameSettings.PlayerType PlayerType => playerType;
+        [SerializeField]
+        private string controlScheme = string.Empty;
+        public string ControlScheme => controlScheme;
+        [SerializeField]
+        private int teamId = 0;
+        public int TeamId => teamId;
 
-        private int scoredBalls;
-        public int ScoredBalls => scoredBalls;
+        public int ScoredBalls { get; private set; }
 
-        private int score;
-        public int Score
+        private long score;
+        public long Score
         {
             get => score;
             private set
@@ -27,17 +33,17 @@ namespace Janegamedev.Core
 
         public void IncrementScoredBalls()
         {
-            scoredBalls++;
+            ScoredBalls++;
         }
 
-        public void AddScore(int scoreToAdd)
+        public void AddScore(long scoreToAdd)
         {
             Score = score + scoreToAdd;
         }
 
         public void ResetRound()
         {
-            scoredBalls = 0;
+            ScoredBalls = 0;
         }
 
         public void ResetGame()

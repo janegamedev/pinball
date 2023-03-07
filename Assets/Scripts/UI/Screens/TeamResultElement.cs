@@ -12,7 +12,7 @@ namespace Janegamedev.UI.Screens
         [SerializeField]
         private TextMeshProUGUI score;
 
-        public void DisplayTeamScore(int teamId, int teamScore)
+        public void DisplayTeamScore(int teamId, long teamScore)
         {
             teamName.text = string.Format(TEAM_NAME, teamId + 1);
             score.text = teamScore.ToString();

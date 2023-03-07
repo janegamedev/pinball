@@ -7,11 +7,11 @@ namespace Janegamedev.Core
 {
     public class BallCollisionController : MonoBehaviour
     {
-        private const string BALL_COLLISION_SFX = "ballCollision";
         private const float SFX_WAIT_TIME_MIN = 0.1f;
         private const float SFX_WAIT_TIME_MAX = 0.3f;
         
         public Ball Ball { get; private set; }
+        private string CollisionSFX => Ball.CollisionSfxId;
 
         private readonly HashSet<GameObject> enteredColliders = new HashSet<GameObject>();
 
@@ -54,7 +54,7 @@ namespace Janegamedev.Core
             {
                 lastSfxPlayTime = Time.fixedTime;
                 nextRandomWait = Random.Range(SFX_WAIT_TIME_MIN, SFX_WAIT_TIME_MAX);
-                MusicPlayer.Instance.PlaySFX(BALL_COLLISION_SFX);
+                MusicPlayer.Instance.PlaySFX(CollisionSFX);
             }
         }
 

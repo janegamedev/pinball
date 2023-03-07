@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1822875047322597150, guid: 7dd8480d1aa4db547b0f1bdabfdc61ea,
+        type: 3}
+      propertyPath: collisionSfxId
+      value: ballCollisionMetal
+      objectReference: {fileID: 0}
     - target: {fileID: 4263387586419541712, guid: 7dd8480d1aa4db547b0f1bdabfdc61ea,
         type: 3}
       propertyPath: m_Name
@@ -16,7 +21,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 7dd478ec5ac72e74b853f5db1219c694,
+      objectReference: {fileID: 13400000, guid: 01571ba68fb2dad46aa03094ab219579,
         type: 2}
     - target: {fileID: 4263387586419541724, guid: 7dd8480d1aa4db547b0f1bdabfdc61ea,
         type: 3}
@@ -78,5 +83,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ce2d0d5f0af92e84ea8a08cd5762d002, type: 2}
+    - target: {fileID: 6267736479791761072, guid: 7dd8480d1aa4db547b0f1bdabfdc61ea,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dd8480d1aa4db547b0f1bdabfdc61ea, type: 3}

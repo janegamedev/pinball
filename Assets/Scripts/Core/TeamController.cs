@@ -27,7 +27,7 @@ namespace Janegamedev.Core
 
             foreach (Team team in playerSides)
             {
-                teamByIdSet.Add(team.teamId, team);
+                teamByIdSet.Add(team.TeamId, team);
             }
         }
         
@@ -51,7 +51,7 @@ namespace Janegamedev.Core
             for (int i = 0; i < playerSides.Length; i++)
             {
                 Team playerTeam = playerSides[i];
-                BasePlayer templateByType = GameState.Instance.GameSettings.GetPlayerTemplateByType(playerTeam.playerType);
+                BasePlayer templateByType = GameState.Instance.GameSettings.GetPlayerTemplateByType(playerTeam.PlayerType);
 
                 if (templateByType == null)
                 {
@@ -59,7 +59,7 @@ namespace Janegamedev.Core
                 }
 
                 BasePlayer player = Instantiate(templateByType, transform);
-                player.AssignTeam(i, playerTeam.controlScheme);
+                player.AssignTeam(i, playerTeam.ControlScheme);
                 spawnedPlayers.Add(player);
             }
         }
@@ -89,7 +89,7 @@ namespace Janegamedev.Core
         
         private void HandleBothBallsScored(BallController controller)
         {
-            int totalScore = GameState.Instance.TotalRoundScore;
+            long totalScore = GameState.Instance.TotalRoundScore;
 
             Team winningTeam = teamByIdSet.FirstOrDefault(x => x.Value.ScoredBalls > 1).Value;
 

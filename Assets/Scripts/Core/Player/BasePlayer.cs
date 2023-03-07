@@ -7,7 +7,7 @@ namespace Janegamedev.Core
     public class BasePlayer : MonoBehaviour
     {
         public static event Action<BasePlayer, int> OnAnyPlayerFireRequest;
-        public static event Action<BasePlayer, int, int, bool> OnAnyFlapperActionReceived;
+        public static event Action<BasePlayer, int, int, bool> OnAnyFlipperActionReceived;
         
         [SerializeField]
         private BaseInputListener inputListener;
@@ -16,13 +16,13 @@ namespace Janegamedev.Core
 
         private void Awake()
         {
-            inputListener.OnAnyFlapperActionReceived += HandleAnyFlapperActionReceived;
+            inputListener.OnAnyFlipperActionReceived += HandleAnyFlipperActionReceived;
             inputListener.OnFireActionTriggered += HandleFireActionTriggered;
         }
 
         private void OnDestroy()
         {
-            inputListener.OnAnyFlapperActionReceived -= HandleAnyFlapperActionReceived;
+            inputListener.OnAnyFlipperActionReceived -= HandleAnyFlipperActionReceived;
             inputListener.OnFireActionTriggered -= HandleFireActionTriggered;
         }
         
@@ -32,9 +32,9 @@ namespace Janegamedev.Core
             inputListener.ActivateListener(controlScheme);
         }
 
-        private void HandleAnyFlapperActionReceived(BaseInputListener listener, int flipperIndex, bool active)
+        private void HandleAnyFlipperActionReceived(BaseInputListener listener, int flipperIndex, bool active)
         {
-            OnAnyFlapperActionReceived?.Invoke(this, teamId, flipperIndex, active);
+            OnAnyFlipperActionReceived?.Invoke(this, teamId, flipperIndex, active);
         }
         
         private void HandleFireActionTriggered(BaseInputListener obj)

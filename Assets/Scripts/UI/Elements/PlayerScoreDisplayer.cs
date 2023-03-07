@@ -23,7 +23,7 @@ namespace Janegamedev.UI.Elements
 
         private void HandleAnyPlayerScoreUpdated(Team team)
         {
-            if (teamIndex == team.teamId)
+            if (teamIndex == team.TeamId)
             {
                 playersScore.text = team.Score.ToString();
             }

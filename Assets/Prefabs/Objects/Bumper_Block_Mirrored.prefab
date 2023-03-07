@@ -114,8 +114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab70d9aa4bcd4f2f95bf8be4ae5930e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreOnCollision: 15
+  scoreOnCollision: 2
   cooldown: 0.2
+  sfxID: bumper
   explosionBounceForce: 1000
   explosionRadius: 1
 --- !u!1 &6711822489749937894

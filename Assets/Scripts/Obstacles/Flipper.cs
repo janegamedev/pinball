@@ -1,6 +1,7 @@
 using Janegamedev.Audio;
 using Janegamedev.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Janegamedev.Obstacles
 {
@@ -12,8 +13,9 @@ namespace Janegamedev.Obstacles
         [Header("Team")]
         [SerializeField]
         private int teamID = 0;
+        [FormerlySerializedAs("flapperID")]
         [SerializeField]
-        private int flapperID = 0;
+        private int flipperID = 0;
         
         [Header("Joint")]
         [SerializeField]
@@ -28,17 +30,17 @@ namespace Janegamedev.Obstacles
         private void Start()
         {
             UpdateMotor(0, 0);
-            BasePlayer.OnAnyFlapperActionReceived += HandleAnyFlapperActionReceived;
+            BasePlayer.OnAnyFlipperActionReceived += HandleAnyFlipperActionReceived;
         }
 
         private void OnDestroy()
         {
-            BasePlayer.OnAnyFlapperActionReceived -= HandleAnyFlapperActionReceived;
+            BasePlayer.OnAnyFlipperActionReceived -= HandleAnyFlipperActionReceived;
         }
 
-        private void HandleAnyFlapperActionReceived(BasePlayer player, int teamId, int flapperId, bool active)
+        private void HandleAnyFlipperActionReceived(BasePlayer player, int teamId, int flapperId, bool active)
         {
-            if (teamID == teamId && flapperID == flapperId)
+            if (teamID == teamId && flipperID == flapperId)
             {
                 SetAction(active);
             }

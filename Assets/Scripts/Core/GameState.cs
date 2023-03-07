@@ -10,18 +10,18 @@ namespace Janegamedev.Core
         public static event Action<GameState> OnGameStarted;
         public static event Action<GameState> OnNewRoundStarted;
         public static event Action<GameState> OnGameEnded;
-        public static event Action<GameState, int> OnTotalRoundScoreUpdated;
+        public static event Action<GameState, long> OnTotalRoundScoreUpdated;
 
         [SerializeField]
         private GameSettings gameSettings;
         public GameSettings GameSettings => gameSettings;
 
         private int MaxRounds => gameSettings.MaxRounds;
-        public bool IsAdditionalRound => RoundIndex >= MaxRounds && !TeamController.Instance.HasWinnerTeam();
+        public bool IsAdditionalRound => RoundIndex > MaxRounds && !TeamController.Instance.HasWinnerTeam();
         
         public int RoundIndex { get; private set; }
         public bool IgnoreInputs { get; private set; }
-        public int TotalRoundScore { get; private set; }
+        public long TotalRoundScore { get; private set; }
 
         protected override void Awake()
         {
@@ -63,7 +63,7 @@ namespace Janegamedev.Core
         private void EndGame()
         {
             UIController.Instance.ShowResultScreen();
-            OnGameEnded?.Invoke(this);
+            BroadcastGameEnded();
         }
         
         private void HandleBothBallsScored(BallController controller)
@@ -74,6 +74,16 @@ namespace Janegamedev.Core
         public void SetIgnoreInputs(bool ignore)
         {
             IgnoreInputs = ignore;
+        }
+
+        public void StopTheGame()
+        {
+            BroadcastGameEnded();
+        }
+
+        private void BroadcastGameEnded()
+        {
+            OnGameEnded?.Invoke(this);
         }
 
         #region Score
@@ -88,7 +98,7 @@ namespace Janegamedev.Core
             SetNewRoundScore(TotalRoundScore * amount);
         }
 
-        private void SetNewRoundScore(int newScore)
+        private void SetNewRoundScore(long newScore)
         {
             TotalRoundScore = newScore;
             OnTotalRoundScoreUpdated?.Invoke(this, TotalRoundScore);

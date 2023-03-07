@@ -104,7 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2298a665a4cb44bc869e9b0de9408edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreOnCollision: 100
+  scoreOnCollision: 20
   cooldown: 0.1
+  sfxID: bumper
   force: 100
   direction: {x: 0, y: 0, z: 1}

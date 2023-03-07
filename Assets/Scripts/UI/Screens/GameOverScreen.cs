@@ -35,7 +35,7 @@ namespace Janegamedev.UI.Screens
             for (int i = 0; i < teams.Count; i++)
             {
                 Team team = teams[i];
-                teamResultElements[i].DisplayTeamScore(team.teamId, team.Score);
+                teamResultElements[i].DisplayTeamScore(team.TeamId, team.Score);
             }
             
             yield return base.TransitionIn();
