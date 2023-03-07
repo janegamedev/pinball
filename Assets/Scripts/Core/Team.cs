@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Janegamedev.Core
 {
+    /// <summary>
+    /// Represents a team in the game, with a player type, control scheme, and score data.
+    /// </summary>
     [Serializable]
     public class Team : IComparable<Team>
     {
@@ -31,26 +34,50 @@ namespace Janegamedev.Core
             }
         }
 
+        /// <summary>
+        /// Increment the number of balls scored by this team
+        /// </summary>
         public void IncrementScoredBalls()
         {
             ScoredBalls++;
         }
 
+        /// <summary>
+        /// Add a given score to the team's total score
+        /// </summary>
+        /// <param name="scoreToAdd">The score to be added</param>
         public void AddScore(long scoreToAdd)
         {
             Score = score + scoreToAdd;
         }
 
+        #region Reset
+        
+        /// <summary>
+        /// Reset the number of balls scored by the team for the current round to 0
+        /// </summary>
         public void ResetRound()
         {
             ScoredBalls = 0;
         }
 
+        /// <summary>
+        /// Reset the team's total score to 0
+        /// </summary>
         public void ResetGame()
         {
             Score = 0;
         }
+        
+        #endregion
 
+        /// <summary>
+        /// Compare the team by the team's score with another team
+        /// </summary>
+        /// <param name="other">The team to be compared to</param>
+        /// <returns>1 if this team's score is less than the other team's score,
+        /// -1 if this team's score is greater than the other team's score,
+        /// and 0 if both scores are equal</returns>
         public int CompareTo(Team other)
         {
             if (other == null)

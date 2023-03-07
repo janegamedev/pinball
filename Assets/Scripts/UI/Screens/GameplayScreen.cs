@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace Janegamedev.UI.Screens
 {
+    /// <summary>
+    /// Controls the gameplay screen which displays the player's score and provides a button to return to the main menu.
+    /// </summary>
     public class GameplayScreen : UIScreen
     {
         private const string SCORE_LABEL_TEXT = "Score: {0}";
@@ -34,23 +37,34 @@ namespace Janegamedev.UI.Screens
         protected override IEnumerator TransitionIn()
         {
             yield return base.TransitionIn();
+            // Enables the player inputs
             GameState.Instance.SetIgnoreInputs(false);
         }
 
+        /// <summary>
+        /// Handles an update to the total round score and sets the score text accordingly.
+        /// </summary>
         private void HandleTotalRoundScoreUpdated(GameState state, long score)
         {
             SetScore(score);
         }
 
+        /// <summary>
+        /// Sets the score text with the provided score.
+        /// </summary>
         private void SetScore(long score)
         {
             totalRoundScore.text = string.Format(SCORE_LABEL_TEXT, score);
         }
         
+        /// <summary>
+        /// Handles a click of the menu button,
+        /// stopping the game and returning to the main menu.
+        /// </summary>
         private void HandleMenuButtonPressed()
         {
             GameState.Instance.StopTheGame();
-            UIController.Instance.OpenStartScreen();
+            UIController.Instance.ActivateStartScreen();
             MusicPlayer.Instance.PlaySFX(BUTTON_PRESS_SFX);
         }
     }

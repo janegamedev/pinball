@@ -7,7 +7,7 @@ namespace Janegamedev.UI.Screens
 {
     /// <summary>
     /// Initial screen of the game
-    /// Allows to select balls to play with
+    /// Allows to start and quit the game
     /// </summary>
     public class StartScreen : UIScreen
     {
@@ -30,6 +30,10 @@ namespace Janegamedev.UI.Screens
             quitGameButton.onClick.RemoveListener(HandleQuitGameButtonPressed);
         }
 
+        /// <summary>
+        /// Handles the "Play Game" button press event.
+        /// Deactivates the current UI and starts the game.
+        /// </summary>
         private void HandlePlayGameButtonPressed()
         {
             Active = false;
@@ -37,6 +41,10 @@ namespace Janegamedev.UI.Screens
             MusicPlayer.Instance.PlaySFX(BUTTON_PRESS_SFX);
         }
 
+        /// <summary>
+        /// Handles the "Quit Game" button press event.
+        /// Quits the application.
+        /// </summary>
         private void HandleQuitGameButtonPressed()
         {
             Application.Quit();

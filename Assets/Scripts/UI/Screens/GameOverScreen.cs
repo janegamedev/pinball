@@ -27,6 +27,11 @@ namespace Janegamedev.UI.Screens
             menuButton.onClick.RemoveListener(HandleMenuButtonPressed);
         }
 
+        /// <summary>
+        /// Transitions screen in
+        /// Displays the scores of each team in the team result elements,
+        /// sorts the teams by score, plays the game over SFX, and waits for the transition in to finish.
+        /// </summary>
         protected override IEnumerator TransitionIn()
         {
             List<Team> teams = TeamController.Instance.Teams;
@@ -43,9 +48,12 @@ namespace Janegamedev.UI.Screens
             MusicPlayer.Instance.PlaySFX(GAME_OVER_SFX);
         }
 
+        /// <summary>
+        /// Handles the menu button being pressed by opening the start screen and playing the button press SFX.
+        /// </summary>
         private void HandleMenuButtonPressed()
         {
-            UIController.Instance.OpenStartScreen();
+            UIController.Instance.ActivateStartScreen();
             MusicPlayer.Instance.PlaySFX(BUTTON_PRESS_SFX);
         }
     }

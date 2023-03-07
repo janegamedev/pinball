@@ -1,10 +1,14 @@
 ﻿using System;
 using Janegamedev.Audio;
 using Janegamedev.Core;
+using Janegamedev.Core.Ball;
 using UnityEngine;
 
 namespace Janegamedev.Obstacles
 {
+    /// <summary>
+    /// Represents a score pad that provides points to the total score when the ball collides with it.
+    /// </summary>
     public class ScorePad : TriggerZone
     {
         private const string SCORE_PAD_SFX = "score";
@@ -20,6 +24,11 @@ namespace Janegamedev.Obstacles
         [SerializeField]
         private int amount;
         
+        /// <summary>
+        /// Handles ball triggers on this score pad.
+        /// </summary>
+        /// <param name="controller">The ball collision controller.</param>
+        /// <param name="type">The collision event type.</param>
         public override void HandleBallTrigger(BallCollisionController controller, CollisionEventType type)
         {
             if (type == CollisionEventType.Enter)

@@ -1,4 +1,5 @@
 using System;
+using Janegamedev.Core.Player;
 using UnityEngine;
 
 namespace Janegamedev.Core

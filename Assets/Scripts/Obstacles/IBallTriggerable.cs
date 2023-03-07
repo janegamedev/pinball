@@ -1,4 +1,5 @@
 using Janegamedev.Core;
+using Janegamedev.Core.Ball;
 
 namespace Janegamedev.Obstacles
 {

@@ -166,36 +166,52 @@ namespace Janegamedev.UI
             }
         }
 
-        public void OpenStartScreen()
+        /// <summary>
+        /// Activates the start screen and deactivates all other screens.
+        /// </summary>
+        public void ActivateStartScreen()
         {
-            DeactivateAllScreens();
-            startScreen.Active = true;
+            ActivateScreen(startScreen);
         }
         
-        public void DisplayNewRoundInfo()
+        /// <summary>
+        /// Activates the round screen and deactivates all other screens.
+        /// </summary>
+        public void ActivateNewRoundScreen()
         {
-            DeactivateAllScreens();
-            roundScreen.Active = true;
+            ActivateScreen(roundScreen);
         }
 
-        public void StartNewRound()
+        /// <summary>
+        /// Activates the gameplay screen and deactivates all other screens.
+        /// </summary>
+        public void ActivateGameplayScreen()
         {
-            DeactivateAllScreens();
-            gameplayScreen.Active = true;
+            ActivateScreen(gameplayScreen);
         }
 
-        public void ShowResultScreen()
+        /// <summary>
+        /// Activates the game over screen and deactivates all other screens.
+        /// </summary>
+        public void ActivateGameOverScreen()
         {
-            DeactivateAllScreens();
-            gameOverScreen.Active = true;
+            ActivateScreen(gameOverScreen);
         }
 
-        private void DeactivateAllScreens()
+        /// <summary>
+        /// Activates the given screen and deactivates all other registered screens.
+        /// </summary>
+        /// <param name="activate">The screen to activate.</param>
+        private void ActivateScreen(UIScreen activate)
         {
+            // Deactivates all registered screens.
             foreach (UIScreen screen in registeredScreens)
             {
                 screen.Active = false;
             }
+
+            activate.Active = true;
         }
+        
     }
 }
