@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Janegamedev.Audio;
 using Janegamedev.Obstacles;
 using Janegamedev.UI;
 using Unity.Mathematics;
@@ -12,6 +13,8 @@ namespace Janegamedev.Core
 {
     public class BallController : MonoBehaviour
     {
+        private const string BALL_RELEASE_SFX = "ballRelease";
+
         public static event Action<BallController> OnBothBallsScored;
         public static event Action<BallController, float> OnLaunchForcePercentageUpdated; 
 
@@ -32,7 +35,7 @@ namespace Janegamedev.Core
         
         private void Awake()
         {
-            BallScoreZone.OnAnyBallEnteredScoreZone += HandleAnyBallEnteredScoreZone;
+            BallDrainZone.OnAnyBallEnteredDrainZone += HandleAnyBallEnteredDrainZone;
             BasePlayer.OnAnyPlayerFireRequest += HandleAnyPlayerFireRequest;
             GameState.OnGameEnded += HandleGameEnded;
             
@@ -50,7 +53,7 @@ namespace Janegamedev.Core
                 launchRoutine = null;
             }
             
-            BallScoreZone.OnAnyBallEnteredScoreZone -= HandleAnyBallEnteredScoreZone;
+            BallDrainZone.OnAnyBallEnteredDrainZone -= HandleAnyBallEnteredDrainZone;
             BasePlayer.OnAnyPlayerFireRequest -= HandleAnyPlayerFireRequest;
             GameState.OnGameEnded -= HandleGameEnded;
             
@@ -141,6 +144,7 @@ namespace Janegamedev.Core
             float force = Mathf.Lerp(spawnForceMinMax.x, spawnForceMinMax.y, launchForcePercentage);
             ball.AddImpulseForce(Vector3.forward * force);
             spawnedBalls.Add(ball);
+            MusicPlayer.Instance.PlaySFX(BALL_RELEASE_SFX);
         }
         
         private void HandleAnyPlayerFireRequest(BasePlayer player, int teamIndex)
@@ -148,7 +152,7 @@ namespace Janegamedev.Core
             LaunchBall(teamIndex);
         }
         
-        private void HandleAnyBallEnteredScoreZone(BallScoreZone zone, Ball scoredBall, int teamId)
+        private void HandleAnyBallEnteredDrainZone(BallDrainZone zone, Ball scoredBall, int teamId)
         {
             scoredBalls.Add(scoredBall);
             scoredBall.DisableBall();

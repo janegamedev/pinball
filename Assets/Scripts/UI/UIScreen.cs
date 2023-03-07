@@ -12,6 +12,8 @@ namespace Janegamedev.UI
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class UIScreen : MonoBehaviour
     {
+        protected const string BUTTON_PRESS_SFX = "tap";
+        
         public event Action<UIScreen> OnTransitionInBegun;
         public event Action<UIScreen> OnTransitionInFinished;
         public event Action<UIScreen> OnTransitionOutBegun;

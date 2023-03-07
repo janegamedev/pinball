@@ -1,4 +1,5 @@
 using System;
+using Janegamedev.Audio;
 using Janegamedev.Core;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace Janegamedev.UI.Elements
 {
     public class BallLaunchPercentageDisplayer : MonoBehaviour
     {
+        private const string FORCE_INCREASE_SFX = "launchForce";
+        
         [SerializeField]
         private SpriteRenderer[] forceArrows = new SpriteRenderer[5];
         [SerializeField]
@@ -40,6 +43,7 @@ namespace Janegamedev.UI.Elements
                 SetIcon(forceArrows[nextIndex], spriteSet.On);
                 nextThreshold += step;
                 nextIndex++;
+                MusicPlayer.Instance.PlaySFX(FORCE_INCREASE_SFX);
             }
         }
 

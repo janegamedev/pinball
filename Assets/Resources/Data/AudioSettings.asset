@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298c796341be4cc380213b52212f3ce4, type: 3}
+  m_Name: AudioSettings
+  m_EditorClassIdentifier: 
+  menuMusicTrack:
+    track: {fileID: 8300000, guid: 42d6fc72609a53c49a48515bf260d5f5, type: 3}
+    maxVolume: 0.5
+    fadeTime: 1
+  gameplayTrack:
+    track: {fileID: 8300000, guid: 3bf91d481c21fa4439ca5ddccfcbfa78, type: 3}
+    maxVolume: 0.08
+    fadeTime: 0.5
+  gameOverTrack:
+    track: {fileID: 8300000, guid: 42d6fc72609a53c49a48515bf260d5f5, type: 3}
+    maxVolume: 0.5
+    fadeTime: 0.5
+  sfxGroups:
+  - id: ballCollision
+    tracks:
+    - {fileID: 8300000, guid: 6fd391c0a33784748a8d3a3dbee0586f, type: 3}
+    - {fileID: 8300000, guid: a7e84be52622de441aefadaa5389d9d6, type: 3}
+    - {fileID: 8300000, guid: 87f4c1ac0d7e26943b12bded4ad7f618, type: 3}
+    maxVolume: 0.4
+  - id: bumper
+    tracks:
+    - {fileID: 8300000, guid: ebcf1a1473b358147a120c53e2eb476f, type: 3}
+    - {fileID: 8300000, guid: 9fa3de7638991564fb9a9f07899fb3b6, type: 3}
+    - {fileID: 8300000, guid: 36b74038820e5ab4a8d15baa0b07762e, type: 3}
+    - {fileID: 8300000, guid: 140fcf25414253b4f86bb09d1242e104, type: 3}
+    - {fileID: 8300000, guid: 21135a2c9e63fc94fa09ed7243c53873, type: 3}
+    - {fileID: 8300000, guid: f27d2b6edcc67d049be70486fe233539, type: 3}
+    - {fileID: 8300000, guid: 6a74bf482f9bcab44bebf15f5e049e95, type: 3}
+    - {fileID: 8300000, guid: f6e3e2c6a2ca04143a12705dff4142a8, type: 3}
+    - {fileID: 8300000, guid: 34c91b1068fa7a1459aaf465b07c9607, type: 3}
+    - {fileID: 8300000, guid: 40219fb64375641458094c37abbc5dbf, type: 3}
+    - {fileID: 8300000, guid: cca4f228c37a4154883fa6c5ee8341a6, type: 3}
+    - {fileID: 8300000, guid: dd8f6a10b70c77748a94030a392d43e0, type: 3}
+    - {fileID: 8300000, guid: 647f1a6733498b746a09ab7ca774fdd8, type: 3}
+    - {fileID: 8300000, guid: f4eb12482aabff64499fde7abdcbebe2, type: 3}
+    - {fileID: 8300000, guid: 05faa55066b6a134591c59d5d3868f07, type: 3}
+    - {fileID: 8300000, guid: 004b931830fd3284e8a9841dbe970610, type: 3}
+    - {fileID: 8300000, guid: 55cf821177ddc8b48833a60a98a0dde2, type: 3}
+    - {fileID: 8300000, guid: 0c3fdc930af4be3409f7b7869c2be10f, type: 3}
+    maxVolume: 0.5
+  - id: flipperUp
+    tracks:
+    - {fileID: 8300000, guid: 5470248100a271742b4b46aa17c277ed, type: 3}
+    - {fileID: 8300000, guid: 3eadc0428cbe1ce44aa665a27a762abb, type: 3}
+    - {fileID: 8300000, guid: fe7a833e42249ec40adcbfd531e14f59, type: 3}
+    - {fileID: 8300000, guid: 5ea58b34a20b9fb4fbe96ebac53b276c, type: 3}
+    - {fileID: 8300000, guid: 63f549b4942a0134f900ce7ced2759be, type: 3}
+    - {fileID: 8300000, guid: d499d4491b581d046b6fd47902ca1a85, type: 3}
+    - {fileID: 8300000, guid: 0b1894d230b17f041a63aee9ca99d168, type: 3}
+    - {fileID: 8300000, guid: ec7d6e6386e3ac84e8dcb0d4396be96f, type: 3}
+    - {fileID: 8300000, guid: ab16bfc3341a21d4aa75ec44f75f4f56, type: 3}
+    - {fileID: 8300000, guid: 1f151196caf34a042995ffe7e12a90a5, type: 3}
+    - {fileID: 8300000, guid: 02135612b2cd6fc43942892eb03b3af3, type: 3}
+    maxVolume: 0.4
+  - id: flipperDown
+    tracks:
+    - {fileID: 8300000, guid: 0a3d051d21f833a498c13f6ddbb41cec, type: 3}
+    - {fileID: 8300000, guid: 2e80ab10fa922f644a9e4f33ec042e43, type: 3}
+    - {fileID: 8300000, guid: 4044558041926e645afde63bf00986b6, type: 3}
+    - {fileID: 8300000, guid: 6d6615a3493a3744db8027c2b7e33d74, type: 3}
+    maxVolume: 0.4
+  - id: drain
+    tracks:
+    - {fileID: 8300000, guid: 700a8e3cbff488a458e57f4592c0778d, type: 3}
+    - {fileID: 8300000, guid: 3680baf050c933b48bc4bbaf168edf61, type: 3}
+    - {fileID: 8300000, guid: 85ba0554a016c9846b90a081a293b045, type: 3}
+    - {fileID: 8300000, guid: 41a91fdca6052574c815a65d701ba42c, type: 3}
+    maxVolume: 0.5
+  - id: ballRelease
+    tracks:
+    - {fileID: 8300000, guid: 603c8ec2e220da34ab58a8399a0dce0c, type: 3}
+    - {fileID: 8300000, guid: eff1a108ad243c8459bc2a240972c813, type: 3}
+    - {fileID: 8300000, guid: 046e778986b7d494cbd60414111d2961, type: 3}
+    - {fileID: 8300000, guid: ecc6426b64a95674792e6f8360617c65, type: 3}
+    maxVolume: 0.6
+  - id: countdown
+    tracks:
+    - {fileID: 8300000, guid: f64533a5d1e4bc643b9470007dc01ecd, type: 3}
+    maxVolume: 0.6
+  - id: wooo
+    tracks:
+    - {fileID: 8300000, guid: c46fed4acd71f6d448be959a6272ea7c, type: 3}
+    maxVolume: 0.6
+  - id: gameOver
+    tracks:
+    - {fileID: 8300000, guid: 1450a548e69edfd49a49dcb1a2ed9ef0, type: 3}
+    maxVolume: 0.6
+  - id: roundStart
+    tracks:
+    - {fileID: 8300000, guid: 99dcd84be042d0c4a84dbedaf35b9635, type: 3}
+    - {fileID: 8300000, guid: 1b0ace0eabaf2e74caf7c329c6f0fc96, type: 3}
+    - {fileID: 8300000, guid: 26f306a9eab35994ca88791f7f9eec01, type: 3}
+    - {fileID: 8300000, guid: 808194de1fabb454c96dc328a93c5ddf, type: 3}
+    maxVolume: 0.6
+  - id: tap
+    tracks:
+    - {fileID: 8300000, guid: c4636026f01ec8e4ba962deaac5826e6, type: 3}
+    - {fileID: 8300000, guid: 65623a6da895ce246946388734626264, type: 3}
+    maxVolume: 0.6
+  - id: launchForce
+    tracks:
+    - {fileID: 8300000, guid: 38aa09d3ebaebab4eb9d89f19c090f3b, type: 3}
+    maxVolume: 0.8
+  - id: score
+    tracks:
+    - {fileID: 8300000, guid: 38aa09d3ebaebab4eb9d89f19c090f3b, type: 3}
+    - {fileID: 8300000, guid: c13a0a59374509a4e9816323b49af279, type: 3}
+    - {fileID: 8300000, guid: 85b133a769e3e71409b253e1c8850945, type: 3}
+    - {fileID: 8300000, guid: 2f01f4245acc4e94eae51ce636527742, type: 3}
+    maxVolume: 0.5

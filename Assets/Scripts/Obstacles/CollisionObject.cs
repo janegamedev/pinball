@@ -1,3 +1,4 @@
+using Janegamedev.Audio;
 using Janegamedev.Core;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ namespace Janegamedev.Obstacles
         [SerializeField]
         private float cooldown;
 
+        [SerializeField]
+        private string sfxID = "bumper";
+
         private float lastCollisionTime;
 
         public virtual void HandleBallCollision(BallCollisionController controller, Vector3 collisionPoint)
@@ -19,6 +23,7 @@ namespace Janegamedev.Obstacles
             {
                 PerformCollisionActions(controller, collisionPoint);
                 AddScoreOnCollision();
+                MusicPlayer.Instance.PlaySFX(sfxID);
                 lastCollisionTime = Time.fixedTime;
             }
         }

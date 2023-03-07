@@ -76,9 +76,16 @@ namespace Janegamedev.Core
             IgnoreInputs = ignore;
         }
 
+        #region Score
+        
         public void AddScore(int score)
         {
             SetNewRoundScore(TotalRoundScore + score);
+        }
+
+        public void MultiplyScore(int amount)
+        {
+            SetNewRoundScore(TotalRoundScore * amount);
         }
 
         private void SetNewRoundScore(int newScore)
@@ -86,5 +93,7 @@ namespace Janegamedev.Core
             TotalRoundScore = newScore;
             OnTotalRoundScoreUpdated?.Invoke(this, TotalRoundScore);
         }
+        
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Janegamedev.Audio;
 using Janegamedev.Obstacles;
 using UnityEngine;
 
@@ -6,9 +7,16 @@ namespace Janegamedev.Core
 {
     public class BallCollisionController : MonoBehaviour
     {
+        private const string BALL_COLLISION_SFX = "ballCollision";
+        private const float SFX_WAIT_TIME_MIN = 0.1f;
+        private const float SFX_WAIT_TIME_MAX = 0.3f;
+        
         public Ball Ball { get; private set; }
 
         private readonly HashSet<GameObject> enteredColliders = new HashSet<GameObject>();
+
+        private float lastSfxPlayTime;
+        private float nextRandomWait;
 
         private void Awake()
         {
@@ -28,7 +36,7 @@ namespace Janegamedev.Core
             {
                 return;
             }
-            
+
             Component collidable = (Component)other.transform.GetComponentInParent<IBallCollidable>();
             
             if (collidable != null)
@@ -40,6 +48,13 @@ namespace Janegamedev.Core
                 {
                     ballCollidable?.HandleBallCollision(this, collisionPoint);
                 }
+            }
+
+            if (Time.fixedTime >= lastSfxPlayTime + nextRandomWait)
+            {
+                lastSfxPlayTime = Time.fixedTime;
+                nextRandomWait = Random.Range(SFX_WAIT_TIME_MIN, SFX_WAIT_TIME_MAX);
+                MusicPlayer.Instance.PlaySFX(BALL_COLLISION_SFX);
             }
         }
 

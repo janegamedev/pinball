@@ -5,6 +5,8 @@ namespace Janegamedev.Obstacles
 {
     public class Bumper : CollisionObject
     {
+        private const string SFX_ID = "bumper";
+        
         [SerializeField]
         private float explosionBounceForce = 100;
         [SerializeField]

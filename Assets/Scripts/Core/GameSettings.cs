@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Janegamedev.Core
 {
-    [CreateAssetMenu(menuName = "Data/GameSettings")]
+    [CreateAssetMenu(menuName = "Settings/Game", fileName = "GameSettings", order = 1)]
     public class GameSettings : ScriptableObject
     {
         public enum PlayerType

@@ -1,4 +1,5 @@
-﻿using Janegamedev.Core;
+﻿using Janegamedev.Audio;
+using Janegamedev.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +34,7 @@ namespace Janegamedev.UI.Screens
         {
             Active = false;
             GameState.Instance.StartGame();
+            MusicPlayer.Instance.PlaySFX(BUTTON_PRESS_SFX);
         }
 
         private void HandleQuitGameButtonPressed()

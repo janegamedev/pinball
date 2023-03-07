@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Janegamedev.Audio;
 using Janegamedev.Core;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace Janegamedev.UI.Screens
 {
     public class NewRoundScreen : UIScreen
     {
+        private const string ROUND_START_SFX = "roundStart";
+        private const string COUNTDOWN_SFX = "countdown";
         private const string ROUND_LABEL_TEXT = "Round {0}";
         private const float COUNTDOWN_DELAY = 2f;
         private const float TEXT_FADE_DURATION = 0.25f;
@@ -42,6 +45,7 @@ namespace Janegamedev.UI.Screens
             countdownLabel.text = string.Empty;
             roundLabel.text = string.Format(ROUND_LABEL_TEXT, GameState.Instance.RoundIndex);
             yield return base.TransitionIn();
+            MusicPlayer.Instance.PlaySFX(ROUND_START_SFX);
             countdownRoutine ??= StartCoroutine(CountdownRoutine());
         }
 
@@ -64,6 +68,8 @@ namespace Janegamedev.UI.Screens
                 .OnComplete(() => fadeTween = null);
             
             yield return new WaitUntil(() => fadeTween == null);
+            
+            MusicPlayer.Instance.PlaySFX(COUNTDOWN_SFX);
 
             float tweenPercentage = 0f;
             Tween forceTween = DOTween.To(x => tweenPercentage = x,

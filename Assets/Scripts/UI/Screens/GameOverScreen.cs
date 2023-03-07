@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Janegamedev.Audio;
 using Janegamedev.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ namespace Janegamedev.UI.Screens
 {
     public class GameOverScreen : UIScreen
     {
+        private const string GAME_OVER_SFX = "gameOver";
+        
         [SerializeField]
         private TeamResultElement[] teamResultElements;
         [SerializeField]
@@ -35,12 +38,15 @@ namespace Janegamedev.UI.Screens
                 teamResultElements[i].DisplayTeamScore(team.teamId, team.Score);
             }
             
-            return base.TransitionIn();
+            yield return base.TransitionIn();
+            
+            MusicPlayer.Instance.PlaySFX(GAME_OVER_SFX);
         }
 
         private void HandleMenuButtonPressed()
         {
             UIController.Instance.OpenStartScreen();
+            MusicPlayer.Instance.PlaySFX(BUTTON_PRESS_SFX);
         }
     }
 }

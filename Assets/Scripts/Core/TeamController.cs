@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Janegamedev.Audio;
 using Janegamedev.Obstacles;
 using Janegamedev.Utilities;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Janegamedev.Core
             base.Awake();
             GameState.OnGameStarted += HandleGameStarted;
             GameState.OnNewRoundStarted += HandleNewRoundStarted;
-            BallScoreZone.OnAnyBallEnteredScoreZone += HandleAnyBallEnteredScoreZone;
+            BallDrainZone.OnAnyBallEnteredDrainZone += HandleAnyBallEnteredDrainZone;
             BallController.OnBothBallsScored += HandleBothBallsScored;
 
             foreach (Team team in playerSides)
@@ -34,7 +35,7 @@ namespace Janegamedev.Core
         {
             GameState.OnGameStarted -= HandleGameStarted;
             GameState.OnNewRoundStarted -= HandleNewRoundStarted;
-            BallScoreZone.OnAnyBallEnteredScoreZone -= HandleAnyBallEnteredScoreZone;
+            BallDrainZone.OnAnyBallEnteredDrainZone -= HandleAnyBallEnteredDrainZone;
             BallController.OnBothBallsScored -= HandleBothBallsScored;
         }
 
@@ -78,7 +79,7 @@ namespace Janegamedev.Core
             spawnedPlayers.Clear();
         }
         
-        private void HandleAnyBallEnteredScoreZone(BallScoreZone scoreZone, Ball ball, int teamId)
+        private void HandleAnyBallEnteredDrainZone(BallDrainZone drainZone, Ball ball, int teamId)
         {
             if (teamByIdSet.TryGetValue(teamId, out Team team))
             {
