@@ -820,7 +820,7 @@ MonoBehaviour:
     Round''s winner gets the collected points
 
     If
-    there is a draw = point will be split
+    there is a draw - points will be split
 
     Winner is determend by total score'
   m_isRightToLeft: 0
@@ -1128,7 +1128,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Player 1: W button
 
-    Player 2: up arrow '
+    Player 2: Up arrow '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dda146d437d44d140a4ed33c8e7f16fa, type: 2}
   m_sharedMaterial: {fileID: 6934241647921147283, guid: dda146d437d44d140a4ed33c8e7f16fa,
